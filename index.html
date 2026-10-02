@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotify - Dafeni</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Menu Lateral (Sidebar) -->
+    <aside class="sidebar">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#a855f7">
+          <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.308-1.758-8.792-.962-.333.076-.662-.132-.738-.465-.076-.333.132-.662.465-.738 3.816-.872 7.098-.497 9.715 1.101.294.18.386.563.207.857zm1.226-2.723c-.226.367-.706.482-1.073.257-2.688-1.652-6.785-2.131-9.965-1.166-.413.126-.85-.108-.975-.521-.125-.413.108-.85.521-.975 3.629-1.101 8.157-.573 11.239 1.328.367.226.482.706.253 1.077zm.106-2.835C14.692 8.95 8.375 8.738 4.708 9.852c-.502.152-1.033-.131-1.185-.633-.152-.502.131-1.033.633-1.185 4.221-1.282 11.203-1.03 14.708 1.052.453.268.602.852.334 1.305-.268.453-.852.602-1.305.334z"/>
+        </svg>
+        <span>Spotify</span>
+      </div>
+
+      <!-- Navegação Principal -->
+      <nav class="nav-main">
+        <a href="#" id="btn-inicio" class="nav-item active"><span class="icon">🏠</span> Início</a>
+        <a href="#" id="btn-buscar" class="nav-item"><span class="icon">🔍</span> Buscar</a>
+        <a href="#" id="btn-painel-criador" class="nav-item highlight"><span class="icon">🎨</span> Painel do Criador</a>
+      </nav>
+
+      <!-- Biblioteca -->
+      <div class="library-section">
+        <div class="library-header">
+          <span>📚 Sua Biblioteca</span>
+          <button class="btn-icon" id="btn-add-quick" title="Adicionar Música">+</button>
+        </div>
+        <div class="pills">
+          <span class="pill active" id="pill-playlists">Playlists</span>
+          <span class="pill" id="pill-artistas">Artistas</span>
+        </div>
+        <div class="playlists-list">
+          <div class="playlist-item active">
+            <div class="playlist-icon heart-icon">💜</div>
+            <div class="playlist-info">
+              <strong>Músicas Curtidas</strong>
+              <small>Playlist • Músicas</small>
+            </div>
+          </div>
+          <div class="playlist-item">
+            <img src="https://picsum.photos/40?random=1" alt="Capa">
+            <div class="playlist-info">
+              <strong>Rock Clássico</strong>
+              <small>Playlist • Spotify</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Área Principal -->
+    <main class="main-content">
+      <header class="topbar">
+        <div class="search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="input-search" placeholder="O que você quer ouvir?">
+        </div>
+        <div class="topbar-actions">
+          <button class="btn-install">⚙️ Instalar aplicativo</button>
+          <div class="user-avatar">👤</div>
+        </div>
+      </header>
+
+      <div class="content-body" id="content-body">
+        
+        <!-- Banner de Boas-Vindas -->
+        <section class="welcome-banner">
+          <h1>Bem-vindo ao Spotify da Dafeni! 👋</h1>
+          <p>Escolha sua música!</p>
+        </section>
+
+        <!-- Tabela de Músicas Cadastradas -->
+        <section class="section table-section" id="secao-tabela">
+          <div class="section-header">
+            <h2>Músicas Cadastradas ( <span id="count-musicas">0</span> )</h2>
+          </div>
+          <div class="table-container">
+            <table class="tracks-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>FAIXA</th>
+                  <th>ARTISTA</th>
+                  <th>AÇÃO</th>
+                </tr>
+              </thead>
+              <tbody id="lista-musicas-tabela">
+                <!-- Preenchido via JS -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Painel do Criador -->
+  <div id="modal-criador" class="modal escondido">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="titulo-form">🎨 Painel do Criador - Adicionar Música</h2>
+        <button id="btn-fechar-modal" class="btn-close">&times;</button>
+      </div>
+      <form id="meu-formulario">
+        <input type="hidden" id="id-musica">
+        <div class="form-group">
+          <input type="text" id="input-titulo" placeholder="Título da música" required>
+          <input type="text" id="input-artista" placeholder="Nome do artista" required>
+        </div>
+        <div class="form-group">
+          <input type="text" id="input-imagem" placeholder="Link da imagem da capa" required>
+          <input type="text" id="input-audio" placeholder="Link do arquivo de áudio (.mp3)" required>
+        </div>
+        <div class="form-buttons">
+          <button type="submit" id="btn-salvar">Salvar Música</button>
+          <button type="button" id="btn-cancelar">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Player Fixo no Rodapé -->
+  <footer class="player-bar">
+    <div class="player-info">
+      <img id="player-capa" src="https://via.placeholder.com/60/282828/FFFFFF?text=Capa" alt="Capa">
+      <div class="player-detalhes">
+        <h4 id="player-titulo">Nenhuma música selecionada</h4>
+        <p id="player-artista">Selecione uma música para tocar</p>
+      </div>
+    </div>
+    <div class="player-controles">
+      <audio id="meu-player" controls></audio>
+    </div>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  height: calc(100vh - 80px);
+  padding: 8px;
+  gap: 8px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background-color: #121212;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.nav-main {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #b3b3b3;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+  color: #ffffff;
+  background-color: #282828;
+}
+
+.nav-item.highlight {
+  color: #c084fc;
+}
+
+/* Biblioteca */
+.library-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #121212;
+}
+
+.library-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #b3b3b3;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  color: #b3b3b3;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.btn-icon:hover {
+  color: #ffffff;
+}
+
+.pills {
+  display: flex;
+  gap: 8px;
+}
+
+.pill {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pill.active {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.playlists-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.playlist-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.playlist-item:hover, .playlist-item.active {
+  background-color: #1a1a1a;
+}
+
+.heart-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #450af5, #c4efd9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.playlist-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.playlist-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-info small {
+  color: #b3b3b3;
+  font-size: 0.75rem;
+}
+
+/* Área Principal */
+.main-content {
+  flex: 1;
+  background-color: #121212;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #101010;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #242424;
+  border-radius: 50px;
+  padding: 8px 16px;
+  width: 320px;
+  gap: 8px;
+}
+
+.search-bar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  width: 100%;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-install {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.user-avatar {
+  background-color: #282828;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.content-body {
+  padding: 24px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+/* Banner de Boas-Vindas */
+.welcome-banner {
+  background: linear-gradient(135deg, #8b5cf6 0%, #4c1d95 100%);
+  border-radius: 12px;
+  padding: 32px 28px;
+  margin-bottom: 24px;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.welcome-banner h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.welcome-banner p {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #e9d5ff;
+  font-weight: 500;
+}
+
+/* Tabela de Músicas */
+.section-header h2 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.tracks-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tracks-table th {
+  color: #b3b3b3;
+  font-size: 0.8rem;
+  border-bottom: 1px solid #282828;
+  padding: 12px;
+}
+
+.tracks-table td {
+  padding: 12px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.tracks-table tr:hover {
+  background-color: #2a2a2a;
+}
+
+.track-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.track-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.btn-tb {
+  background-color: #282828;
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-right: 4px;
+}
+
+.btn-tb-play {
+  background-color: #a855f7;
+}
+
+.btn-tb:hover {
+  opacity: 0.8;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.escondido {
+  display: none;
+}
+
+.modal-content {
+  background-color: #181818;
+  padding: 28px;
+  border-radius: 12px;
+  width: 480px;
+  max-width: 90%;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.form-group input {
+  background-color: #282828;
+  border: 1px solid #3e3e3e;
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: #ffffff;
+  outline: none;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.form-buttons button {
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#btn-salvar {
+  background-color: #a855f7;
+  color: #ffffff;
+}
+
+#btn-cancelar {
+  background-color: #282828;
+  color: #ffffff;
+}
+
+/* Player Fixo */
+.player-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #000000;
+  border-top: 1px solid #282828;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 30%;
+}
+
+.player-info img {
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.player-detalhes h4 {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.player-detalhes p {
+  font-size: 0.75rem;
+  color: #b3b3b3;
+}
+
+.player-controles audio {
+  outline: none;
+  height: 40px;
+}
