@@ -4,6 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spotify - Dafeni</title>
+
+  <!-- Meta Tags PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#121212">
+  
+  <!-- Suporte para iOS (Safari) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Spotify Dafeni">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -62,7 +73,7 @@
           <input type="text" id="input-search" placeholder="O que você quer ouvir?">
         </div>
         <div class="topbar-actions">
-          <button class="btn-install">⚙️ Instalar aplicativo</button>
+          <button class="btn-install" id="btn-instalar-app">⚙️ Instalar aplicativo</button>
           <div class="user-avatar">👤</div>
         </div>
       </header>
@@ -80,7 +91,7 @@
           <div class="section-header">
             <h2>Músicas Cadastradas ( <span id="count-musicas">0</span> )</h2>
           </div>
-          <div class="table-container">
+          <div class="table-responsive">
             <table class="tracks-table">
               <thead>
                 <tr>

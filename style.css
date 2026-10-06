@@ -3,18 +3,23 @@
   padding: 0;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 body {
   background-color: #000000;
   color: #ffffff;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .app-container {
   display: flex;
   height: calc(100vh - 80px);
+  height: calc(100dvh - 80px);
   padding: 8px;
   gap: 8px;
 }
@@ -28,6 +33,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  flex-shrink: 0;
 }
 
 .logo {
@@ -56,6 +62,7 @@ body {
   padding: 8px 12px;
   border-radius: 6px;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .nav-item:hover, .nav-item.active {
@@ -74,6 +81,7 @@ body {
   flex-direction: column;
   gap: 12px;
   background-color: #121212;
+  overflow-y: auto;
 }
 
 .library-header {
@@ -172,6 +180,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  width: 100%;
 }
 
 .topbar {
@@ -180,6 +189,7 @@ body {
   align-items: center;
   padding: 16px 24px;
   background-color: #101010;
+  gap: 12px;
 }
 
 .search-bar {
@@ -189,6 +199,7 @@ body {
   border-radius: 50px;
   padding: 8px 16px;
   width: 320px;
+  max-width: 100%;
   gap: 8px;
 }
 
@@ -207,14 +218,19 @@ body {
 }
 
 .btn-install {
+  display: none;
   background-color: #000000;
   color: #ffffff;
-  border: none;
+  border: 1px solid #3e3e3e;
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: bold;
   cursor: pointer;
+}
+
+.btn-install:hover {
+  background-color: #282828;
 }
 
 .user-avatar {
@@ -260,10 +276,16 @@ body {
   margin-bottom: 16px;
 }
 
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .tracks-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  min-width: 480px;
 }
 
 .tracks-table th {
@@ -300,7 +322,7 @@ body {
   background-color: #282828;
   color: #ffffff;
   border: none;
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.8rem;
@@ -327,6 +349,7 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 16px;
 }
 
 .modal.escondido {
@@ -338,7 +361,7 @@ body {
   padding: 28px;
   border-radius: 12px;
   width: 480px;
-  max-width: 90%;
+  max-width: 100%;
   box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
@@ -403,40 +426,109 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 80px;
+  min-height: 80px;
   background-color: #000000;
   border-top: 1px solid #282828;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 24px;
+  padding: 8px 24px;
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+  z-index: 999;
 }
 
 .player-info {
   display: flex;
   align-items: center;
   gap: 12px;
-  width: 30%;
+  width: 35%;
 }
 
 .player-info img {
-  width: 56px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
   border-radius: 4px;
   object-fit: cover;
 }
 
 .player-detalhes h4 {
-  font-size: 0.9rem;
-  margin-bottom: 4px;
+  font-size: 0.85rem;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .player-detalhes p {
   font-size: 0.75rem;
   color: #b3b3b3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-controles {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .player-controles audio {
   outline: none;
-  height: 40px;
+  height: 36px;
+  max-width: 100%;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 0;
+    gap: 0;
+    height: calc(100dvh - 80px);
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    border-radius: 0;
+  }
+
+  .topbar {
+    padding: 12px 16px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .content-body {
+    padding: 16px;
+  }
+
+  .welcome-banner {
+    padding: 20px;
+  }
+
+  .welcome-banner h1 {
+    font-size: 1.5rem;
+  }
+
+  .welcome-banner p {
+    font-size: 0.9rem;
+  }
+
+  .player-bar {
+    padding: 8px 12px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+  }
+
+  .player-info {
+    width: 45%;
+  }
+
+  .player-controles audio {
+    width: 170px;
+  }
 }

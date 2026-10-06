@@ -1,11 +1,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyC0YvCoeRdDCTuhk4jHMPq5GHGpkKY4qFA",
   authDomain: "dafe-spotify.firebaseapp.com",
-  databaseURL: "https://dafe-spotify-default-rtdb.firebaseio.com", 
+  databaseURL: "https://dafe-spotify-default-rtdb.firebaseio.com",
   projectId: "dafe-spotify",
   storageBucket: "dafe-spotify.firebasestorage.app",
   messagingSenderId: "178024870650",
@@ -16,3 +15,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const refMusicas = ref(db, "musicas");
+
+export { app, db, refMusicas };

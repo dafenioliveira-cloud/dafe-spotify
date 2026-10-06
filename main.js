@@ -23,7 +23,6 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const refMusicas = ref(db, "musicas");
 
-// Auxiliar seguro para associar eventos
 function escutarEvento(idElemento, evento, callback) {
   const el = document.getElementById(idElemento);
   if (el) {
@@ -102,6 +101,23 @@ function atualizarAbaAtiva(idAba) {
   document.getElementById(idAba)?.classList.add("active");
 }
 
+// --- MEDIA SESSION API ---
+function atualizarMediaSession(musica) {
+  if ("mediaSession" in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: musica.titulo || "Música",
+      artist: musica.artista || "Artista",
+      album: "Spotify Dafeni",
+      artwork: [
+        { src: musica.imagem || "https://via.placeholder.com/512/121212/FFFFFF?text=Music", sizes: "512x512", type: "image/png" }
+      ]
+    });
+
+    navigator.mediaSession.setActionHandler("play", () => meuPlayer?.play());
+    navigator.mediaSession.setActionHandler("pause", () => meuPlayer?.pause());
+  }
+}
+
 // --- FIREBASE E TABELA ---
 
 onValue(refMusicas, (snapshot) => {
@@ -151,7 +167,7 @@ function desenharLinhaTabela(id, musica, numero) {
     <td>
       <button class="btn-tb btn-tb-play">▶ Tocar</button>
       <button class="btn-tb btn-tb-edit">Editar</button>
-      <button class="btn-tb btn-tb-del">Excluir</button>
+      <button class="btn-tb btn-tb-del">Eliminar</button>
     </td>
   `;
 
@@ -165,6 +181,8 @@ function desenharLinhaTabela(id, musica, numero) {
     if (playerCapa) playerCapa.src = musica.imagem;
     if (playerTitulo) playerTitulo.textContent = musica.titulo;
     if (playerArtista) playerArtista.textContent = musica.artista;
+
+    atualizarMediaSession(musica);
   });
 
   // Editar Música
@@ -180,9 +198,9 @@ function desenharLinhaTabela(id, musica, numero) {
     abrirModal();
   });
 
-  // Excluir Música
+  // Eliminar Música
   tr.querySelector(".btn-tb-del")?.addEventListener("click", async () => {
-    if (confirm(`Tem a certeza que deseja excluir "${musica.titulo}"?`)) {
+    if (confirm(`Tem a certeza que deseja eliminar "${musica.titulo}"?`)) {
       await remove(ref(db, "musicas/" + id));
     }
   });
@@ -190,7 +208,7 @@ function desenharLinhaTabela(id, musica, numero) {
   tabelaCorpo.appendChild(tr);
 }
 
-// Form Submit (Salvar ou Editar)
+// Submissão do Formulário
 if (formulario) {
   formulario.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -218,4 +236,37 @@ function limparFormulario() {
   if (inputId) inputId.value = "";
   if (tituloForm) tituloForm.textContent = "🎨 Painel do Criador - Adicionar Música";
   if (btnSalvar) btnSalvar.textContent = "Salvar Música";
+}
+
+// --- PROMPT DE INSTALAÇÃO PWA ---
+let deferredPrompt;
+const btnInstalar = document.getElementById("btn-instalar-app");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (btnInstalar) {
+    btnInstalar.style.display = "inline-block";
+  }
+});
+
+if (btnInstalar) {
+  btnInstalar.addEventListener("click", async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`Instalação do utilizador: ${outcome}`);
+      deferredPrompt = null;
+      btnInstalar.style.display = "none";
+    }
+  });
+}
+
+// --- REGISTO DO SERVICE WORKER ---
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then((reg) => console.log("Service Worker registado com sucesso:", reg.scope))
+      .catch((err) => console.error("Erro ao registar Service Worker:", err));
+  });
 }
